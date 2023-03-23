@@ -42,11 +42,9 @@ function watch() {
 
 const build = gulp.series(clean_dest, gulp.parallel(styles, scripts), watch);
 
-
 exports.clean_dest = clean_dest;
 exports.styles = styles;
 exports.scripts = scripts;
 exports.watch = watch;
-
 exports.build = build;
 exports.default = build;
