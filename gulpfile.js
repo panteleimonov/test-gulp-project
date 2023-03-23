@@ -6,6 +6,7 @@ const rename = require('gulp-rename');
 const babel = require('gulp-babel');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
+const sourcemaps = require('gulp-sourcemaps');
 
 
 const path_styles_src = 'src/styles/**/*.less';
@@ -21,17 +22,21 @@ function clean_dest() {
 
 function styles() {
     return gulp.src(path_styles_src)
+        .pipe(sourcemaps.init())
         .pipe(less())
         .pipe(cleanCSS())
         .pipe(rename({ suffix: '.min' }))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(path_styles_dest));
 }
 
 function scripts() {
     return gulp.src(path_scripts_src)
+        .pipe(sourcemaps.init())
         .pipe(babel())
         .pipe(uglify())
         .pipe(concat('main.min.js'))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(path_scripts_dest));
 }
 
