@@ -7,6 +7,7 @@ const babel = require('gulp-babel');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const sourcemaps = require('gulp-sourcemaps');
+const autoprefixer = require('gulp-autoprefixer');
 
 
 const path_styles_src = 'src/styles/**/*.less';
@@ -24,6 +25,7 @@ function styles() {
     return gulp.src(path_styles_src)
         .pipe(sourcemaps.init())
         .pipe(less())
+        .pipe(autoprefixer({ cascade: false }))
         .pipe(cleanCSS())
         .pipe(rename({ suffix: '.min' }))
         .pipe(sourcemaps.write())
@@ -33,7 +35,7 @@ function styles() {
 function scripts() {
     return gulp.src(path_scripts_src)
         .pipe(sourcemaps.init())
-        .pipe(babel())
+        .pipe(babel({ presets: ['@babel/env'] }))
         .pipe(uglify())
         .pipe(concat('main.min.js'))
         .pipe(sourcemaps.write())
