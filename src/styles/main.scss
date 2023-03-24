@@ -1,0 +1,11 @@
+$color: red;
+$fz: 18px;
+
+body {
+    background-color: #eee;
+    p {
+        color: $color;
+        font-size: $fz;
+    }
+}
+    

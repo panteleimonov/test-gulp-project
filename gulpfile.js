@@ -1,6 +1,7 @@
 const gulp = require("gulp");
 const del = require("del");
-const less = require("gulp-less");
+// const less = require("gulp-less");
+const sass = require('gulp-sass')(require('sass'));
 const cleanCSS = require("gulp-clean-css");
 const rename = require("gulp-rename");
 const babel = require("gulp-babel");
@@ -16,7 +17,7 @@ const browserSync = require('browser-sync').create();
 
 
 
-const path_styles_src = "src/styles/**/*.less";
+const path_styles_src = ["src/styles/**/*.less", "src/styles/**/*.sass", "src/styles/**/*.scss"];
 const path_styles_dest = "dist/css/";
 
 const path_scripts_src = "src/scripts/**/*.js";
@@ -36,7 +37,8 @@ function clean_dest() {
 function styles() {
     return gulp.src(path_styles_src)
         .pipe(sourcemaps.init())
-        .pipe(less())
+        // .pipe(less())
+        .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer({
             cascade: false
         }))
